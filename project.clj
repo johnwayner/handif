@@ -9,8 +9,8 @@
                  [hiccup "1.0.2"]
                  [com.cemerick/friend "0.1.2"]]
   :ring {:handler handif.server/secured-app}
-  :datomic {:schema-dir "resources/schema"}
-  :profiles {:dev {:datomic
-                  {:config "resources/free-transactor-template.properties"
-                   :db-uri "datomic:free://localhost:4334/handif"
-                   :init-data "resources/data/test-data.dtm"}}})
+  :datomic {:schemas ["resources/schema" ["handif.dtm"
+                                          "initial-data.dtm"]]}
+  :profiles {:dev
+             {:datomic {:config "resources/free-transactor-template.properties"
+                        :db-uri "datomic:free://localhost:4334/handif"}}})
