@@ -1,0 +1,18 @@
+[ ;;; Initial Ongoing Feedbacks
+ {:db/id #db/id[:db.part/user]
+  :db/ident :ongoing-feedback/enjoying
+  :common/name "Enjoying"
+  :ongoing-feedback/type :ongoing-feedback-type/positive}
+ {:db/id #db/id[:db.part/user]
+  :db/ident :ongoing-feedback/ok
+  :common/name "Ok"
+  :ongoing-feedback/type :ongoing-feedback-type/neutral}
+ {:db/id #db/id[:db.part/user]
+  :db/ident :ongoing-feedback/confused
+  :common/name "Confused"
+  :ongoing-feedback/type :ongoing-feedback-type/negative}
+ {:db/id #db/id[:db.part/user]
+  :db/ident :ongoing-feedback/bored
+  :common/name "Bored"
+  :ongoing-feedback/type :ongoing-feedback-type/negative}
+ ]

@@ -1,0 +1,201 @@
+[{:db/ident :common/name
+  :db/valueType :db.type/string
+  :db/cardinality :db.cardinality/one
+  :db/doc "The name of this entity"
+  :db/id #db/id[:db.part/db]
+  :db.install/_attribute :db.part/db}
+ {:db/ident :common/description
+  :db/valueType :db.type/string
+  :db/cardinality :db.cardinality/one
+  :db/doc "The description of this entity."
+  :db/id #db/id[:db.part/db]
+  :db.install/_attribute :db.part/db}
+ {:db/ident :common/start
+  :db/valueType :db.type/instant
+  :db/cardinality :db.cardinality/one
+  :db/doc "The start time of this entity"
+  :db/id #db/id[:db.part/db]
+  :db.install/_attribute :db.part/db}
+ {:db/ident :common/end
+  :db/valueType :db.type/instant
+  :db/cardinality :db.cardinality/one
+  :db/doc "The end time of this entity"
+  :db/id #db/id[:db.part/db]
+  :db.install/_attribute :db.part/db}
+ {:db/ident :common/location
+  :db/valueType :db.type/string 
+  :db/cardinality :db.cardinality/one
+  :db/doc "The name of the location where this entity is occuring."
+  :db/id #db/id[:db.part/db]
+  :db.install/_attribute :db.part/db}
+ {:db/ident :common/presentation
+  :db/valueType :db.type/ref
+  :db/cardinality :db.cardinality/one
+  :db/doc "The presentation this entity is associated with."
+  :db/id #db/id[:db.part/db]
+  :db.install/_attribute :db.part/db}
+ 
+ ;;Presentation
+ {:db/ident :prez/name
+  :db/valueType :db.type/string
+  :db/unique :db.unique/value
+  :db/cardinality :db.cardinality/one
+  :db/fulltext true
+  :db/doc "The name of this presentation.  Not using :common/name for unique constraint."
+  :db/id #db/id[:db.part/db]
+  :db.install/_attribute :db.part/db}
+ {:db/ident :prez/presenter
+  :db/valueType :db.type/ref
+  :db/cardinality :db.cardinality/one
+  :db/doc "The presenter(s) of this presentation"
+  :db/id #db/id[:db.part/db]
+  :db.install/_attribute :db.part/db}
+ {:db/ident :prez/event
+  :db/valueType :db.type/ref
+  :db/cardinality :db.cardinality/one
+  :db/doc "The event this presentation is part of (eg. conference, meetup)"
+  :db/id #db/id[:db.part/db]
+  :db.install/_attribute :db.part/db}
+ {:db/ident :prez/member
+  :db/valueType :db.type/ref
+  :db/cardinality :db.cardinality/many
+  :db/doc "The audience members participating in this presentation."
+  :db/id #db/id[:db.part/db]
+  :db.install/_attribute :db.part/db}
+ {:db/ident :prez/ongoing-feedback-option
+  :db/valueType :db.type/ref
+  :db/cardinality :db.cardinality/many
+  :db/doc "The ongoing feedback options for this presentation"
+  :db/id #db/id[:db.part/db]
+  :db.install/_attribute :db.part/db}
+
+ ;;User
+ {:db/ident :user/username
+  :db/valueType :db.type/string
+  :db/unique :db.unique/value
+  :db/cardinality :db.cardinality/one
+  :db/doc "The user's username."
+  :db/id #db/id[:db.part/db]
+  :db.install/_attribute :db.part/db}
+ {:db/ident :user/password-hash
+  :db/valueType :db.type/string
+  :db/cardinality :db.cardinality/one
+  :db/doc "The bcrypt2 of the user's password."
+  :db/id #db/id[:db.part/db]
+  :db.install/_attribute :db.part/db}
+ {:db/ident :user/roles
+  :db/valueType :db.type/string
+  :db/cardinality :db.cardinality/many
+  :db/doc "The roles (name from keyword) for this user."
+  :db/id #db/id[:db.part/db]
+  :db.install/_attribute :db.part/db}
+
+ ;;Presenter
+ {:db/ident :presenter/company
+  :db/valueType :db.type/string
+  :db/cardinality :db.cardinality/one
+  :db/doc "The company this presenter is representing."
+  :db/id #db/id[:db.part/db]
+  :db.install/_attribute :db.part/db}
+ {:db/ident :presenter/url
+  :db/valueType :db.type/uri
+  :db/cardinality :db.cardinality/one
+  :db/doc "A URL for more information about this presenter."
+  :db/id #db/id[:db.part/db]
+  :db.install/_attribute :db.part/db}
+
+ ;;Member
+ {:db/ident :member/uuid
+  :db/valueType :db.type/uuid
+  :db/cardinality :db.cardinality/one
+  :db/doc "UUID for this audience member."
+  :db/id #db/id[:db.part/db]
+  :db.install/_attribute :db.part/db}
+ {:db/ident :member/ip
+  :db/valueType :db.type/string
+  :db/cardinality :db.cardinality/one
+  :db/doc "The ip address of the audience member."
+  :db/id #db/id[:db.part/db]
+  :db.install/_attribute :db.part/db}
+
+ ;;Event
+;;;all attrs are common: name, location, start, end
+
+ ;;Ongoing feedback option
+ {:db/ident :ongoing-feedback/type
+  :db/valueType :db.type/ref
+  :db/cardinality :db.cardinality/one
+  :db/unique :db.unique/identity
+  :db/doc "The general type of feedback this option represents: positive, negative, neutral"
+  :db/id #db/id[:db.part/db]
+  :db.install/_attribute :db.part/db}
+
+ {:db/ident :ongoing-feedback-type/positive
+  :db/id #db/id[:db.part/user]}
+ {:db/ident :ongoing-feedback-type/neutral
+  :db/id #db/id[:db.part/user]}
+ {:db/ident :ongoing-feedback-type/negative
+  :db/id #db/id[:db.part/user]}
+
+
+ ;;Poll
+ {:db/ident :poll/open
+  :db/valueType :db.type/boolean
+  :db/cardinality :db.cardinality/one
+  :db/doc "Indicates if this poll is open for responses."
+  :db/id #db/id[:db.part/db]
+  :db.install/_attribute :db.part/db}
+ {:db/ident :poll/question
+  :db/valueType :db.type/string
+  :db/cardinality :db.cardinality/one
+  :db/doc "The question the poll is answering."
+  :db/id #db/id[:db.part/db]
+  :db.install/_attribute :db.part/db}
+
+ ;;Poll Answer
+ {:db/ident :poll-answer/poll
+  :db/valueType :db.type/ref
+  :db/cardinality :db.cardinality/one
+  :db/doc "The poll this answer is for."
+  :db/id #db/id[:db.part/db]
+  :db.install/_attribute :db.part/db}
+ {:db/ident :poll-answer/position
+  :db/valueType :db.type/long
+  :db/cardinality :db.cardinality/one
+  :db/doc "The position in the answer list for this answer."
+  :db/id #db/id[:db.part/db]
+  :db.install/_attribute :db.part/db}
+;;;use :common/name for the answer text
+ 
+ ;;Feedback
+ {:db/ident :feedback/time
+  :db/valueType :db.type/instant
+  :db/cardinality :db.cardinality/one
+  :db/doc "The time this feedback was given."
+  :db/id #db/id[:db.part/db]
+  :db.install/_attribute :db.part/db}
+ {:db/ident :feedback/member
+  :db/valueType :db.type/ref
+  :db/cardinality :db.cardinality/one
+  :db/doc "The member that gave the feedback."
+  :db/id #db/id[:db.part/db]
+  :db.install/_attribute :db.part/db}
+ {:db/ident :feedback/on-going
+  :db/valueType :db.type/ref
+  :db/cardinality :db.cardinality/one
+  :db/doc "The on-going feedback option selected, if this is on-going feedback."
+  :db/id #db/id[:db.part/db]
+  :db.install/_attribute :db.part/db}
+ {:db/ident :feedback/poll-answer
+  :db/valueType :db.type/ref
+  :db/cardinality :db.cardinality/one
+  :db/doc "The poll answer chosen, if this is a poll answer."
+  :db/id #db/id[:db.part/db]
+  :db.install/_attribute :db.part/db}
+ {:db/ident :feedback/overall
+  :db/valueType :db.type/string
+  :db/cardinality :db.cardinality/one
+  :db/doc "The feedback for the overall presentation."
+  :db/id #db/id[:db.part/db]
+  :db.install/_attribute :db.part/db}
+ ]
